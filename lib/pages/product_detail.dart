@@ -134,8 +134,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                         const CircularProgressIndicator(),
                                     errorWidget: (context, url, error) =>
                                         const Icon(Icons.error),
-                                    width: 500,
-                                    height: 240,
+                                    fit: BoxFit.cover,
                                   )
                                 : const Icon(Icons.favorite),
                             const SizedBox(height: 40),
