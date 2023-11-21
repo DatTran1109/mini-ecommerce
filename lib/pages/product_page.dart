@@ -170,7 +170,7 @@ class _ProductPageState extends State<ProductPage> {
                     } else if (snapshot.connectionState ==
                         ConnectionState.none) {
                       return Container();
-                    } else if (snapshot.hasData) {
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
@@ -243,7 +243,13 @@ class _ProductPageState extends State<ProductPage> {
                       );
                     } else {
                       return const Center(
-                        child: Text('There is no available product'),
+                        child: Text(
+                          'There is no available product!',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
+                        ),
                       );
                     }
                   }),
