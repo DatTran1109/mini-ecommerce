@@ -1,16 +1,5 @@
 # mini_ecommerce
 
-A new Flutter project.
+Mini ecommerce is a small ecommerce application built with Flutter for frontend, NodeJS & MongoDB for backend and Firebase for user authentication.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**For backend part, follow this repo: https://github.com/DatTran1109/mini-ecommerce-backend.git**
