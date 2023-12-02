@@ -6,8 +6,6 @@ import 'package:mini_ecommerce/components/my_drawer.dart';
 import 'package:mini_ecommerce/components/password_dialog.dart';
 import 'package:mini_ecommerce/components/profile_detail.dart';
 import 'package:mini_ecommerce/components/profile_dialog.dart';
-import 'package:mini_ecommerce/data/models/shop_provider.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -19,6 +17,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
+    final String userEmail = currentUser!.email as String;
     final userCollection = FirebaseFirestore.instance.collection('Users');
     final controller = TextEditingController();
     final oldPasswordcontroller = TextEditingController();
@@ -43,7 +42,7 @@ class ProfilePage extends StatelessWidget {
     Future saveProfileDetail(String field) async {
       if (controller.text.trim().isNotEmpty) {
         await userCollection
-            .doc(currentUser!.email)
+            .doc(currentUser.email)
             .update({field: controller.text.trim()});
 
         controller.clear();
@@ -67,11 +66,9 @@ class ProfilePage extends StatelessWidget {
 
         try {
           final cred = EmailAuthProvider.credential(
-              email:
-                  Provider.of<ShopProvider>(context, listen: false).userEmail,
-              password: oldPasswordcontroller.text);
+              email: userEmail, password: oldPasswordcontroller.text);
 
-          await currentUser!
+          await currentUser
               .reauthenticateWithCredential(cred)
               .then((value) =>
                   currentUser.updatePassword(newPasswordcontroller.text))
@@ -140,7 +137,7 @@ class ProfilePage extends StatelessWidget {
         body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('Users')
-              .doc(currentUser!.email)
+              .doc(currentUser.email)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

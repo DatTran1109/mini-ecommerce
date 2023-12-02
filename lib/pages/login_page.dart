@@ -6,8 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:mini_ecommerce/components/my_button.dart';
 import 'package:mini_ecommerce/components/square_tile.dart';
 import 'package:mini_ecommerce/components/text_field.dart';
-import 'package:mini_ecommerce/data/models/shop_provider.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   final Function()? onTap;
@@ -51,13 +49,8 @@ class LoginPage extends StatelessWidget {
           .signInWithEmailAndPassword(
               email: emailTextController.text,
               password: passwordTextController.text)
-          .whenComplete(() {
-        Provider.of<ShopProvider>(context, listen: false)
-            .setUserEmail(emailTextController.text);
-        Navigator.pop(context);
-      });
+          .whenComplete(() => Navigator.pop(context));
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       showMessage(context, e.code);
     }
   }
@@ -85,8 +78,6 @@ class LoginPage extends StatelessWidget {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .whenComplete(() {
-        Provider.of<ShopProvider>(context, listen: false)
-            .setUserEmail(googleUser.email);
         Navigator.pop(context);
       });
     } on FirebaseAuthException catch (e) {

@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_ecommerce/components/my_button.dart';
 import 'package:mini_ecommerce/components/text_field.dart';
-import 'package:provider/provider.dart';
-
-import '../data/models/shop_provider.dart';
 
 class RegisterPage extends StatelessWidget {
   final Function()? onTap;
@@ -60,21 +57,17 @@ class RegisterPage extends StatelessWidget {
           .createUserWithEmailAndPassword(
               email: emailTextController.text,
               password: passwordTextController.text)
-          .whenComplete(() {
-        Provider.of<ShopProvider>(context, listen: false)
-            .setUserEmail(emailTextController.text);
-        Navigator.pop(context);
-      });
+          .whenComplete(() => Navigator.pop(context));
 
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(userCredential.user!.email)
           .set({
         'username': emailTextController.text.split('@')[0],
-        'address': 'Empty address..'
+        'address': 'Empty address..',
+        'role': 'user'
       });
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       showMessage(context, e.code);
     }
   }

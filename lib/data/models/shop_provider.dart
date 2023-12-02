@@ -5,13 +5,13 @@ class ShopProvider with ChangeNotifier {
   String _sort = '';
   String _search = '';
   String _selectedProductID = '';
-  String _userEmail = '';
+  // String _userEmail = '';
 
   String get filter => _filter;
   String get sort => _sort;
   String get search => _search;
   String get selectedProductID => _selectedProductID;
-  String get userEmail => _userEmail;
+  // String get userEmail => _userEmail;
 
   void setFilterField(String field) {
     _filter = field;
@@ -33,8 +33,8 @@ class ShopProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setUserEmail(String email) {
-    _userEmail = email;
-    notifyListeners();
-  }
+  // void setUserEmail(String email) {
+  //   _userEmail = email;
+  //   notifyListeners();
+  // }
 }
