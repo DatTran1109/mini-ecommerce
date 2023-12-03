@@ -12,7 +12,12 @@
           "package_name": "com.example.mini_ecommerce"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "79735881535-apn6eqtcojiigicjg25u0true16sruob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCKylJgrF2MTdWGSwqFH9ZOQVqURRFiva8"
@@ -20,18 +25,35 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79735881535-apn6eqtcojiigicjg25u0true16sruob.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "79735881535-c93vptm248kbrsvuhu8ev3pqp6b5uv7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miniecommerceAdmin"
+              }
+            }
+          ]
         }
       }
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:79735881535:android:d2cc4766f885f1fc445d8a",
+        "mobilesdk_app_id": "1:79735881535:android:a3f2692353c88298445d8a",
         "android_client_info": {
-          "package_name": "com.example.mini_ecommerce_app"
+          "package_name": "com.example.miniecommerce_admin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "79735881535-apn6eqtcojiigicjg25u0true16sruob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCKylJgrF2MTdWGSwqFH9ZOQVqURRFiva8"
@@ -39,7 +61,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79735881535-apn6eqtcojiigicjg25u0true16sruob.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "79735881535-c93vptm248kbrsvuhu8ev3pqp6b5uv7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.miniecommerceAdmin"
+              }
+            }
+          ]
         }
       }
     }

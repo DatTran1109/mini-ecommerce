@@ -7,6 +7,7 @@ import 'package:mini_ecommerce/components/product_tile.dart';
 import 'package:mini_ecommerce/data/models/shop_provider.dart';
 import 'package:mini_ecommerce/data/services/category_service.dart';
 import 'package:mini_ecommerce/data/services/product_service.dart';
+import 'package:mini_ecommerce/pages/product_detail.dart';
 import 'package:provider/provider.dart';
 
 class ShopPage extends StatelessWidget {
@@ -183,12 +184,12 @@ class ShopPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ProductTile(
                     product: snapshot.data![index],
-                    onTap: () {
-                      Provider.of<ShopProvider>(context, listen: false)
-                          .setSelectedProductID(snapshot.data![index].id);
-
-                      Navigator.pushNamed(context, '/product_detail');
-                    },
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetail(product: snapshot.data![index])),
+                    ),
                   );
                 },
               );

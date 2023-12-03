@@ -6,7 +6,6 @@ import 'package:mini_ecommerce/pages/cart_page.dart';
 import 'package:mini_ecommerce/pages/forgot_password.dart';
 import 'package:mini_ecommerce/pages/intro_page.dart';
 import 'package:mini_ecommerce/pages/news_page.dart';
-import 'package:mini_ecommerce/pages/product_detail.dart';
 import 'package:mini_ecommerce/pages/product_page.dart';
 import 'package:mini_ecommerce/pages/setting_page.dart';
 import 'package:mini_ecommerce/pages/shop_page.dart';
@@ -50,7 +49,6 @@ class MyApp extends StatelessWidget {
         '/shop_page': (context) => const ShopPage(),
         '/cart_page': (context) => const CartPage(),
         '/product_page': (context) => const ProductPage(),
-        '/product_detail': (context) => const ProductDetail(),
         '/news_page': (context) => const NewsPage(),
         '/forgot_password': (context) => const ForgotPasswordPage(),
       },

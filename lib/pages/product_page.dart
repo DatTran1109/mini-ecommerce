@@ -9,6 +9,7 @@ import 'package:mini_ecommerce/data/models/product_model.dart';
 import 'package:mini_ecommerce/data/models/shop_provider.dart';
 import 'package:mini_ecommerce/data/services/category_service.dart';
 import 'package:mini_ecommerce/data/services/product_service.dart';
+import 'package:mini_ecommerce/pages/product_detail.dart';
 
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
@@ -182,13 +183,12 @@ class _ProductPageState extends State<ProductPage> {
                           margin: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           child: ListTile(
-                            onTap: () {
-                              Provider.of<ShopProvider>(context, listen: false)
-                                  .setSelectedProductID(
-                                      snapshot.data![index].id);
-
-                              Navigator.pushNamed(context, '/product_detail');
-                            },
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductDetail(
+                                      product: snapshot.data![index])),
+                            ),
                             title: Text(snapshot.data![index].name),
                             subtitle:
                                 Text('${snapshot.data![index].price}.000 VND'),

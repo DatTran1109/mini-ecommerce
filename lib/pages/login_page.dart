@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,15 +17,14 @@ class LoginPage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Center(
-          child: Text(
-            message,
-            style: const TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.w400,
-              fontSize: 18,
-            ),
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Colors.red,
+            fontWeight: FontWeight.w400,
+            fontSize: 18,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
   void signIn(BuildContext context, TextEditingController emailTextController,
       TextEditingController passwordTextController) async {
     if (emailTextController.text == '' || passwordTextController.text == '') {
-      showMessage(context, 'Email and password required');
+      showMessage(context, 'Email and password are required');
       return;
     }
 
@@ -57,8 +57,7 @@ class LoginPage extends StatelessWidget {
 
   Future googleSignIn(BuildContext context) async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleUser!.authentication;
@@ -68,23 +67,26 @@ class LoginPage extends StatelessWidget {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      showDialog(
-        context: context,
-        builder: (context) => Center(
-          child: Lottie.asset('assets/animations/loading.json'),
-        ),
-      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
-      await FirebaseAuth.instance
-          .signInWithCredential(credential)
-          .whenComplete(() {
-        Navigator.pop(context);
-      });
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(googleUser.email)
+          .get();
+
+      if (documentSnapshot.data() == null) {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(googleUser.email)
+            .set({
+          'username': googleUser.email.split('@')[0],
+          'address': 'Empty address..',
+          'role': 'user'
+        });
+      }
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
       showMessage(context, e.code);
     } on PlatformException catch (e) {
-      Navigator.pop(context);
       showMessage(context, e.toString());
     }
   }
