@@ -28,12 +28,11 @@ class ProfilePage extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Center(
-            child: Text(
-              message,
-              style: const TextStyle(
-                  color: Colors.red, fontWeight: FontWeight.w400, fontSize: 18),
-            ),
+          content: Text(
+            message,
+            style: const TextStyle(
+                color: Colors.red, fontWeight: FontWeight.w400, fontSize: 18),
+            textAlign: TextAlign.center,
           ),
         ),
       );
@@ -43,11 +42,13 @@ class ProfilePage extends StatelessWidget {
       if (controller.text.trim().isNotEmpty) {
         await userCollection
             .doc(currentUser.email)
-            .update({field: controller.text.trim()});
+            .update({field: controller.text.trim()}).whenComplete(
+                () => Navigator.pop(context));
 
         controller.clear();
+      } else {
+        showMessage('Field is empty, please enter something!');
       }
-      Navigator.pop(context);
     }
 
     Future savePassword() async {
@@ -72,15 +73,16 @@ class ProfilePage extends StatelessWidget {
               .reauthenticateWithCredential(cred)
               .then((value) =>
                   currentUser.updatePassword(newPasswordcontroller.text))
-              .whenComplete(() => Navigator.pop(context));
+              .whenComplete(() {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
 
-          Navigator.pop(context);
           oldPasswordcontroller.clear();
           newPasswordcontroller.clear();
           confirmPasswordcontroller.clear();
           showMessage('Change password successfully');
         } on FirebaseAuthException catch (e) {
-          Navigator.pop(context);
           oldPasswordcontroller.clear();
           newPasswordcontroller.clear();
           confirmPasswordcontroller.clear();

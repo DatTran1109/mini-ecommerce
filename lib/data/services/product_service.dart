@@ -29,15 +29,15 @@ class ProductService {
     }
   }
 
-  static Future<ProductModel> fetchProduct(String id) async {
-    final url =
-        Uri.parse('https://bewildered-toad-veil.cyclic.app/api/v1/product/$id');
-    final response = await http.get(url);
+  // static Future<ProductModel> fetchProduct(String id) async {
+  //   final url =
+  //       Uri.parse('https://bewildered-toad-veil.cyclic.app/api/v1/product/$id');
+  //   final response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      return ProductModel.fromJson(json.decode(response.body));
-    } else {
-      throw Exception("Failed to load product");
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return ProductModel.fromJson(json.decode(response.body));
+  //   } else {
+  //     throw Exception("Failed to load product");
+  //   }
+  // }
 }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_ecommerce/components/my_button.dart';
@@ -32,24 +31,16 @@ class LoginPage extends StatelessWidget {
 
   void signIn(BuildContext context, TextEditingController emailTextController,
       TextEditingController passwordTextController) async {
-    if (emailTextController.text == '' || passwordTextController.text == '') {
+    if (emailTextController.text.trim() == '' ||
+        passwordTextController.text.trim() == '') {
       showMessage(context, 'Email and password are required');
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (context) => Center(
-        child: Lottie.asset('assets/animations/loading.json'),
-      ),
-    );
-
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: emailTextController.text,
-              password: passwordTextController.text)
-          .whenComplete(() => Navigator.pop(context));
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailTextController.text.trim(),
+          password: passwordTextController.text.trim());
     } on FirebaseAuthException catch (e) {
       showMessage(context, e.code);
     }
@@ -86,8 +77,6 @@ class LoginPage extends StatelessWidget {
       }
     } on FirebaseAuthException catch (e) {
       showMessage(context, e.code);
-    } on PlatformException catch (e) {
-      showMessage(context, e.toString());
     }
   }
 

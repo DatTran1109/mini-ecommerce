@@ -33,37 +33,37 @@ class RegisterPage extends StatelessWidget {
       TextEditingController emailTextController,
       TextEditingController passwordTextController,
       TextEditingController passwordConfirmTextController) async {
-    if (emailTextController.text == '' ||
-        passwordTextController.text == '' ||
-        passwordConfirmTextController.text == '') {
+    if (emailTextController.text.trim() == '' ||
+        passwordTextController.text.trim() == '' ||
+        passwordConfirmTextController.text.trim() == '') {
       showMessage(context, 'All fields are required');
       return;
     }
 
-    if (passwordTextController.text != passwordConfirmTextController.text) {
-      showMessage(context, 'Password confirmation doesn\'t match');
+    if (RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            .hasMatch(emailTextController.text.trim()) ==
+        false) {
+      showMessage(context, 'Email is not valid');
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (context) => Center(
-        child: Lottie.asset('assets/animations/loading.json'),
-      ),
-    );
+    if (passwordTextController.text.trim() !=
+        passwordConfirmTextController.text.trim()) {
+      showMessage(context, 'Password confirmation does not match');
+      return;
+    }
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: emailTextController.text,
-              password: passwordTextController.text)
-          .whenComplete(() => Navigator.pop(context));
+              email: emailTextController.text.trim(),
+              password: passwordTextController.text.trim());
 
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(userCredential.user!.email)
           .set({
-        'username': emailTextController.text.split('@')[0],
+        'username': emailTextController.text.trim().split('@')[0],
         'address': 'Empty address..',
         'role': 'user'
       });
